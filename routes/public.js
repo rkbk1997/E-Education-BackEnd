@@ -5,7 +5,6 @@ var User = require('../models/userRegster');
 var passport = require('passport');
 
 router.post('/register', function (req, res, next) {
-  console.log(req.body)
   User.find({ username: req.body.username }, (error, data) => {
     if (data) {
       if (data.length > 0) {
@@ -28,10 +27,9 @@ async function addToDB(req, res) {
     role: 'user',
     status: 0
   });
-                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
   try {
     doc = await user.save();
-    console.log('server hit')
     return res.send(true)
   }
   catch (err) {
@@ -62,7 +60,8 @@ router.get('/logout', isValidUser, function (req, res, next) {
 
 function isValidUser(req, res, next) {
   if (req.isAuthenticated()) next();
-  else return res.status(401).json({ message: 'Unauthorized Request' });
+  else 
+  return res.status(401).json({ message: 'Unauthorized Request' });
 }
 
 module.exports = router;

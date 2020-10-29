@@ -16,7 +16,7 @@ passport.use('local', new LocalStrategy({
                 return done(null, false, { password: true });
             }
             // if(!user.status){
-            //     return done(null, false, {message:'User Not varified '})
+            //     return done(null, false, {email: true})
             // }
 
             return done(null, user);
