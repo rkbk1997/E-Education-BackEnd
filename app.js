@@ -2,14 +2,18 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var publicRouter = require('./routes/public');
-// var adminRouter = require('./routes/admin');
-// var userRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
+var userRouter = require('./routes/users');
 var cors= require('cors');
 var app = express();
+
 app.use(express.static('./uploads'));
+
+
 app.use(cors({
-  origin:['http://localhost:4200','http://127.0.0.1:4200'],
+  origin:['http://localhost:4201','http://127.0.0.1:4201'],
   credentials:true
 }));
 
@@ -45,14 +49,17 @@ require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', publicRouter);
-// app.use('/admin', adminRouter);
-// app.use('/user', userRouter);
+app.use('/admin', adminRouter);
+app.use('/publicuser', userRouter);
+
 
 app.listen('8000',(req,res)=>{
     console.log('server start at 8000')
