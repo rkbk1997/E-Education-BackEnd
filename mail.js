@@ -8,8 +8,8 @@ module.exports.log =  async function (user, callback) {
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: 'rkbk1997@gmail.com',
-        pass: 'shyamsundarlal'
+        user: 'your mail id',
+        pass: 'your mail password'
       }
     });
   
